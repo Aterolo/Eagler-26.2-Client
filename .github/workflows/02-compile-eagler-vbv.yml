@@ -2,6 +2,8 @@ name: "02 - Build Eaglercraft 26.2 u2 (VBV + Herz)"
 
 run-name: "02 - Build VBV + Herz"
 
+# Veydris Client 26.2 build workflow
+
 on:
   workflow_dispatch:
   push:
