@@ -33,7 +33,6 @@ REQUIRED_PATCH_SCRIPTS = (
     "patch_pack_installer_hook.py",
     "patch_screen_resize_guard.py",
     "patch_lod_hooks.py",
-    "patch_entity_culling_hooks.py",
     "patch_cem_hooks.py",
     "pack_json_merge.py",
 )
@@ -67,7 +66,6 @@ required_order_tokens = (
     "subprocess.run([sys.executable, str(pack_installer_hook)",
     "subprocess.run([sys.executable, str(screen_resize_guard)",
     "subprocess.run([sys.executable, str(lod_hooks)",
-    "subprocess.run([sys.executable, str(entity_culling_hooks)",
     "subprocess.run([sys.executable, str(cem_hooks)",
     "subprocess.run([sys.executable, str(js_long_checker)",
 )
@@ -349,12 +347,6 @@ if screen_resize_guard.is_file():
 lod_hooks = PATCH_DIR / "patch_lod_hooks.py"
 if lod_hooks.is_file():
     subprocess.run([sys.executable, str(lod_hooks), *sys.argv[1:]], check=True)
-
-# Entity Culling: skip drawing entities and block entities hidden behind solid blocks. Three
-# small hooks in LevelExtractor; inert when the Entity Culling setting is switched off.
-entity_culling_hooks = PATCH_DIR / "patch_entity_culling_hooks.py"
-if entity_culling_hooks.is_file():
-    subprocess.run([sys.executable, str(entity_culling_hooks), *sys.argv[1:]], check=True)
 
 # Custom entity models: resource-pack .jem/.jpm files (OptiFine format) replace parts of the
 # vanilla entity models. Three small hooks; inert when the setting is off.
