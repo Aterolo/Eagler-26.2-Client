@@ -82,6 +82,7 @@ public final class VBVClient {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             VBVExtraFeatures.tick(client);
             VBVMovementFeatures.tick(client);
+            VBVPlayerEsp.tick(client);
             VBVWorldMap.tick();
         });
     }
