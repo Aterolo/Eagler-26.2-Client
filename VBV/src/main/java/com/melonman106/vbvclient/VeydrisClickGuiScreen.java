@@ -19,7 +19,13 @@ public final class VeydrisClickGuiScreen extends Screen {
         {"appleskin", "AppleSkin", "HUD"},
         {"crosshair", "Custom Crosshair", "HUD"},
         {"betterf3", "BetterF3", "Render"},
-        {"perf-meter", "Performance Meter", "Render"}
+        {"perf-meter", "Performance Meter", "Render"},
+        {"minimap", "Minimap", "Render"},
+        {"jade", "Target Info", "HUD"},
+        {"shulker-viewer", "Shulker Preview", "Utility"},
+        {"first-person", "First Person Arms", "Render"},
+        {"lod", "Distant Terrain LOD", "Render"},
+        {"cem", "Custom Entity Models", "Render"}
     };
 
     private final Map<String, Button> moduleButtons = new LinkedHashMap<>();
@@ -102,6 +108,12 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "crosshair": return VBVCrosshairConfig.enabled;
             case "betterf3": return VBVExtraFeatures.isBetterF3Enabled();
             case "perf-meter": return VBVPerf.isMeter();
+            case "minimap": return VBVMiniMap.enabled;
+            case "jade": return VBVJadeHud.enabled;
+            case "shulker-viewer": return VBVShulkerViewer.enabled;
+            case "first-person": return VBVFirstPersonAnimations.isEnabled();
+            case "lod": return VBVLod.getLevel() != VBVLod.OFF;
+            case "cem": return VBVCem.isEnabled();
             default: return false;
         }
     }
@@ -116,6 +128,12 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "crosshair": VBVCrosshairConfig.enabled = !VBVCrosshairConfig.enabled; break;
             case "betterf3": VBVExtraFeatures.toggleBetterF3Enabled(); break;
             case "perf-meter": VBVPerf.toggleMeter(); break;
+            case "minimap": VBVMiniMap.enabled = !VBVMiniMap.enabled; break;
+            case "jade": VBVJadeHud.enabled = !VBVJadeHud.enabled; break;
+            case "shulker-viewer": VBVShulkerViewer.toggle(); break;
+            case "first-person": VBVFirstPersonAnimations.toggle(); break;
+            case "lod": VBVLod.setLevel(VBVLod.getLevel() == VBVLod.OFF ? VBVLod.LOW : VBVLod.OFF); break;
+            case "cem": VBVCem.toggle(); break;
             default: return;
         }
         VBVConfigStore.saveAll();
