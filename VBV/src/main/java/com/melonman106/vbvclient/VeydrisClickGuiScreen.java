@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 
 /** Purple/black module click GUI for Veydris Client. */
 public final class VeydrisClickGuiScreen extends Screen {
-    private static final String[] CATEGORIES = {"All", "Render", "HUD", "Utility"};
+    private static final String[] CATEGORIES = {"All", "Combat", "Movement", "Render", "HUD", "Utility"};
     private static final String[][] MODULES = {
         {"fullbright", "Fullbright", "Utility"},
         {"zoom", "Zoom", "Utility"},
@@ -23,6 +23,9 @@ public final class VeydrisClickGuiScreen extends Screen {
         {"player-radar", "Player Radar", "Render"},
         {"player-esp", "Player ESP", "Render"},
         {"auto-sprint", "Auto Sprint", "Utility"},
+        {"speed", "Speed", "Movement"},
+        {"no-fall", "NoFall", "Movement"},
+        {"elytra-fly", "ElytraFly", "Movement"},
         {"minimap", "Minimap", "Render"},
         {"jade", "Target Info", "HUD"},
         {"shulker-viewer", "Shulker Preview", "Utility"},
@@ -47,7 +50,7 @@ public final class VeydrisClickGuiScreen extends Screen {
         int left = (width - panelWidth) / 2;
         int top = Math.max(24, height / 2 - 125);
         int tabGap = 4;
-        int tabWidth = (panelWidth - 24 - tabGap * 3) / 4;
+        int tabWidth = (panelWidth - 24 - tabGap * (CATEGORIES.length - 1)) / CATEGORIES.length;
 
         categoryButtons.clear();
         for (int i = 0; i < CATEGORIES.length; i++) {
@@ -114,6 +117,9 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "player-radar": return VBVPlayerRadar.enabled;
             case "player-esp": return VBVPlayerEsp.enabled;
             case "auto-sprint": return VBVMovementFeatures.autoSprint;
+            case "speed": return VBVMovementFeatures.speed;
+            case "no-fall": return VBVMovementFeatures.noFall;
+            case "elytra-fly": return VBVMovementFeatures.elytraFly;
             case "minimap": return VBVMiniMap.enabled;
             case "jade": return VBVJadeHud.enabled;
             case "shulker-viewer": return VBVShulkerViewer.enabled;
@@ -137,6 +143,9 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "player-radar": VBVPlayerRadar.enabled = !VBVPlayerRadar.enabled; break;
             case "player-esp": VBVPlayerEsp.setEnabled(!VBVPlayerEsp.enabled); break;
             case "auto-sprint": VBVMovementFeatures.autoSprint = !VBVMovementFeatures.autoSprint; break;
+            case "speed": VBVMovementFeatures.speed = !VBVMovementFeatures.speed; break;
+            case "no-fall": VBVMovementFeatures.noFall = !VBVMovementFeatures.noFall; break;
+            case "elytra-fly": VBVMovementFeatures.elytraFly = !VBVMovementFeatures.elytraFly; break;
             case "minimap": VBVMiniMap.enabled = !VBVMiniMap.enabled; break;
             case "jade": VBVJadeHud.enabled = !VBVJadeHud.enabled; break;
             case "shulker-viewer": VBVShulkerViewer.toggle(); break;
