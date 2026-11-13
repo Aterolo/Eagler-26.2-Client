@@ -124,6 +124,7 @@ public final class VBVConfigStore {
         VBVEntityCulling.setEnabled(bool("entityCulling.enabled", false));
         VBVPerf.setMeter(bool("perf.meter", false));
         VBVPlayerRadar.enabled = bool("playerRadar.enabled", false);
+        VBVPlayerEsp.setEnabled(bool("playerEsp.enabled", false));
         VBVMovementFeatures.autoSprint = bool("movement.autoSprint", false);
         VBVCem.setEnabled(bool("cem.enabled", true));
 
@@ -190,6 +191,7 @@ public final class VBVConfigStore {
         write("entityCulling.enabled", VBVEntityCulling.isEnabled());
         write("perf.meter", VBVPerf.isMeter());
         write("playerRadar.enabled", VBVPlayerRadar.enabled);
+        write("playerEsp.enabled", VBVPlayerEsp.enabled);
         write("movement.autoSprint", VBVMovementFeatures.autoSprint);
         write("cem.enabled", VBVCem.isEnabled());
 
