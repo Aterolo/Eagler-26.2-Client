@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 public final class VeydrisClickGuiScreen extends Screen {
     private static final String[] CATEGORIES = {"All", "Combat", "Movement", "Render", "HUD", "Utility"};
     private static final String[][] MODULES = {
+        {"killaura", "KillAura", "Combat"},
         {"fullbright", "Fullbright", "Utility"},
         {"zoom", "Zoom", "Utility"},
         {"simple-hud", "HUD", "HUD"},
@@ -106,6 +107,7 @@ public final class VeydrisClickGuiScreen extends Screen {
 
     private static boolean isEnabled(String id) {
         switch (id) {
+            case "killaura": return VBVKillAura.enabled;
             case "fullbright": return VBVExtraFeatures.isGammaFeatureEnabled();
             case "zoom": return VBVExtraFeatures.isZoomEnabled();
             case "simple-hud": return VBVSimpleHudConfig.enabled;
@@ -132,6 +134,7 @@ public final class VeydrisClickGuiScreen extends Screen {
 
     private static void toggle(String id) {
         switch (id) {
+            case "killaura": VBVKillAura.enabled = !VBVKillAura.enabled; break;
             case "fullbright": VBVExtraFeatures.toggleGammaFeature(); break;
             case "zoom": VBVExtraFeatures.toggleZoomEnabled(); break;
             case "simple-hud": VBVSimpleHudConfig.enabled = !VBVSimpleHudConfig.enabled; break;
