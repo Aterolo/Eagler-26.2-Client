@@ -18,7 +18,6 @@ public final class VeydrisClickGuiScreen extends Screen {
         {"armor-hud", "Armor HUD", "HUD"},
         {"appleskin", "AppleSkin", "HUD"},
         {"crosshair", "Custom Crosshair", "HUD"},
-        {"entity-culling", "Entity Culling", "Render"},
         {"betterf3", "BetterF3", "Render"},
         {"perf-meter", "Performance Meter", "Render"}
     };
@@ -101,7 +100,6 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "armor-hud": return VBVArmorHudConfig.enabled;
             case "appleskin": return VBVAppleSkin.isEnabled();
             case "crosshair": return VBVCrosshairConfig.enabled;
-            case "entity-culling": return VBVEntityCulling.isEnabled();
             case "betterf3": return VBVExtraFeatures.isBetterF3Enabled();
             case "perf-meter": return VBVPerf.isMeter();
             default: return false;
@@ -116,7 +114,6 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "armor-hud": VBVArmorHudConfig.enabled = !VBVArmorHudConfig.enabled; break;
             case "appleskin": VBVAppleSkin.toggleEnabled(); break;
             case "crosshair": VBVCrosshairConfig.enabled = !VBVCrosshairConfig.enabled; break;
-            case "entity-culling": VBVEntityCulling.toggle(); break;
             case "betterf3": VBVExtraFeatures.toggleBetterF3Enabled(); break;
             case "perf-meter": VBVPerf.toggleMeter(); break;
             default: return;
