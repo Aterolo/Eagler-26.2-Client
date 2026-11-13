@@ -121,7 +121,7 @@ public final class VBVConfigStore {
         VBVTheme.load(integer("theme.preset", 0, 0, VBVTheme.CUSTOM_INDEX),
             integer("theme.custom", 0xA66BFF, 0, 0xFFFFFF));
         VBVLod.load(integer("lod.level", VBVLod.OFF, VBVLod.OFF, VBVLod.FULL));
-        VBVEntityCulling.setEnabled(bool("entityCulling.enabled", true));
+        VBVEntityCulling.setEnabled(bool("entityCulling.enabled", false));
         VBVPerf.setMeter(bool("perf.meter", false));
         VBVCem.setEnabled(bool("cem.enabled", true));
 
