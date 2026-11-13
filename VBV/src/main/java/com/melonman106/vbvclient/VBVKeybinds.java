@@ -7,7 +7,7 @@ import net.minecraft.client.input.KeyEvent;
 /** Mods-screen and world-map navigation hotkeys on the native keyboard event bridge. */
 public final class VBVKeybinds {
     private static final int KEY_V = 86;
-    private static final int KEY_M = 77;
+    private static final int KEY_M = 77;\n    private static final int KEY_RIGHT_SHIFT = 344;
 
     private VBVKeybinds() {}
 
