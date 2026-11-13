@@ -215,7 +215,7 @@ jobs:
           grep -q 'VBV_LOD_FAR_PLANE' eaglercraft-u2/game/src/main/java/net/minecraft/client/Camera.java
           grep -q 'VBV_LOD_FOG' eaglercraft-u2/game/src/main/java/net/minecraft/client/renderer/fog/FogRenderer.java
           grep -q 'VBV_LOD_CAPTURE' eaglercraft-u2/game/src/main/java/net/minecraft/client/multiplayer/ClientChunkCache.java
-          test "$(grep -c 'VBV_ENTITY_CULLING' eaglercraft-u2/game/src/main/java/net/minecraft/client/renderer/extract/LevelExtractor.java)" -eq 3
+          ! grep -q 'VBV_ENTITY_CULLING' eaglercraft-u2/game/src/main/java/net/minecraft/client/renderer/extract/LevelExtractor.java
           grep -q 'VBV_CEM' eaglercraft-u2/game/src/main/java/net/minecraft/client/model/geom/EntityModelSet.java
           grep -q 'VBV_CEM' eaglercraft-u2/game/src/main/java/net/minecraft/client/renderer/entity/EntityRenderDispatcher.java
           grep -q 'VBV_CEM' eaglercraft-u2/game/src/main/java/net/minecraft/client/renderer/texture/TextureManager.java
