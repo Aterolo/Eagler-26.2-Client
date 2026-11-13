@@ -83,6 +83,7 @@ public final class VBVClient {
             VBVExtraFeatures.tick(client);
             VBVMovementFeatures.tick(client);
             VBVPlayerEsp.tick(client);
+            VBVKillAura.tick(client);
             VBVWorldMap.tick();
         });
     }
