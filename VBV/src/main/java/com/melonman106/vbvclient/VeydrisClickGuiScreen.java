@@ -21,6 +21,7 @@ public final class VeydrisClickGuiScreen extends Screen {
         {"betterf3", "BetterF3", "Render"},
         {"perf-meter", "Performance Meter", "Render"},
         {"player-radar", "Player Radar", "Render"},
+        {"auto-sprint", "Auto Sprint", "Utility"},
         {"minimap", "Minimap", "Render"},
         {"jade", "Target Info", "HUD"},
         {"shulker-viewer", "Shulker Preview", "Utility"},
@@ -110,6 +111,7 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "betterf3": return VBVExtraFeatures.isBetterF3Enabled();
             case "perf-meter": return VBVPerf.isMeter();
             case "player-radar": return VBVPlayerRadar.enabled;
+            case "auto-sprint": return VBVMovementFeatures.autoSprint;
             case "minimap": return VBVMiniMap.enabled;
             case "jade": return VBVJadeHud.enabled;
             case "shulker-viewer": return VBVShulkerViewer.enabled;
@@ -131,6 +133,7 @@ public final class VeydrisClickGuiScreen extends Screen {
             case "betterf3": VBVExtraFeatures.toggleBetterF3Enabled(); break;
             case "perf-meter": VBVPerf.toggleMeter(); break;
             case "player-radar": VBVPlayerRadar.enabled = !VBVPlayerRadar.enabled; break;
+            case "auto-sprint": VBVMovementFeatures.autoSprint = !VBVMovementFeatures.autoSprint; break;
             case "minimap": VBVMiniMap.enabled = !VBVMiniMap.enabled; break;
             case "jade": VBVJadeHud.enabled = !VBVJadeHud.enabled; break;
             case "shulker-viewer": VBVShulkerViewer.toggle(); break;
