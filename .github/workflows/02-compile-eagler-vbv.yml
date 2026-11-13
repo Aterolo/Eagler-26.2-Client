@@ -4,6 +4,9 @@ run-name: "02 - Build VBV + Herz"
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - veydris-client-26.2
   
 permissions:
   contents: read
@@ -20,7 +23,7 @@ jobs:
       - name: Checkout this mod project
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: veydris-client-26.2
           fetch-depth: 1
 
       - name: Checkout known-good Eaglercraft 26.2 u2 workspace
