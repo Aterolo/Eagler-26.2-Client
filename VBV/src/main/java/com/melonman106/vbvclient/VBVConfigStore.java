@@ -123,6 +123,7 @@ public final class VBVConfigStore {
         VBVLod.load(integer("lod.level", VBVLod.OFF, VBVLod.OFF, VBVLod.FULL));
         VBVEntityCulling.setEnabled(bool("entityCulling.enabled", false));
         VBVPerf.setMeter(bool("perf.meter", false));
+        VBVPlayerRadar.enabled = bool("playerRadar.enabled", false);
         VBVCem.setEnabled(bool("cem.enabled", true));
 
         VBVExtraFeatures.loadSettings(
@@ -187,6 +188,7 @@ public final class VBVConfigStore {
         write("lod.level", VBVLod.getLevel());
         write("entityCulling.enabled", VBVEntityCulling.isEnabled());
         write("perf.meter", VBVPerf.isMeter());
+        write("playerRadar.enabled", VBVPlayerRadar.enabled);
         write("cem.enabled", VBVCem.isEnabled());
 
         write("gamma.enabled", VBVExtraFeatures.isGammaFeatureEnabled());
