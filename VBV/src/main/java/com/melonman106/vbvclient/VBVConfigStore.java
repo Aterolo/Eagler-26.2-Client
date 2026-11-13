@@ -126,6 +126,9 @@ public final class VBVConfigStore {
         VBVPlayerRadar.enabled = bool("playerRadar.enabled", false);
         VBVPlayerEsp.setEnabled(bool("playerEsp.enabled", false));
         VBVMovementFeatures.autoSprint = bool("movement.autoSprint", false);
+        VBVMovementFeatures.speed = bool("movement.speed", false);
+        VBVMovementFeatures.noFall = bool("movement.noFall", false);
+        VBVMovementFeatures.elytraFly = bool("movement.elytraFly", false);
         VBVCem.setEnabled(bool("cem.enabled", true));
 
         VBVExtraFeatures.loadSettings(
@@ -193,6 +196,9 @@ public final class VBVConfigStore {
         write("playerRadar.enabled", VBVPlayerRadar.enabled);
         write("playerEsp.enabled", VBVPlayerEsp.enabled);
         write("movement.autoSprint", VBVMovementFeatures.autoSprint);
+        write("movement.speed", VBVMovementFeatures.speed);
+        write("movement.noFall", VBVMovementFeatures.noFall);
+        write("movement.elytraFly", VBVMovementFeatures.elytraFly);
         write("cem.enabled", VBVCem.isEnabled());
 
         write("gamma.enabled", VBVExtraFeatures.isGammaFeatureEnabled());
