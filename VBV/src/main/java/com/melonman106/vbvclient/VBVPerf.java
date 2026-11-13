@@ -128,14 +128,9 @@ public final class VBVPerf {
         int accent = VBVTheme.accentLight();
         String line1 = fps + " FPS   " + one(avgMs) + " ms   worst " + Math.round(worstMs) + " ms";
         String line2 = "Spikes (30s): " + spikes50 + " over 50ms, " + spikes100 + " over 100ms";
-        String line3 = null;
-        if (VBVEntityCulling.isEnabled() && VBVEntityCulling.lastEntitiesSeen() + VBVEntityCulling.lastBlockEntitiesSeen() > 0) {
-            line3 = "Culled " + VBVEntityCulling.lastEntitiesCulled() + "/" + VBVEntityCulling.lastEntitiesSeen()
-                + " entities, " + VBVEntityCulling.lastBlockEntitiesCulled() + "/" + VBVEntityCulling.lastBlockEntitiesSeen() + " blocks";
-        }
-        int width = Math.max(Math.max(font.width(line1), font.width(line2)), Math.max(line3 == null ? 0 : font.width(line3), GRAPH_FRAMES)) + 8;
+        int width = Math.max(Math.max(font.width(line1), font.width(line2)), GRAPH_FRAMES) + 8;
         int lineH = font.lineHeight + 1;
-        int height = 4 + lineH * (line3 == null ? 2 : 3) + GRAPH_HEIGHT + 6;
+        int height = 4 + lineH * 2 + GRAPH_HEIGHT + 6;
         int x = graphics.guiWidth() / 2 - width / 2;
         int y = 2;
         graphics.fill(x, y, x + width, y + height, 0xA0000000);
@@ -146,10 +141,6 @@ public final class VBVPerf {
         ty += lineH;
         graphics.text(font, line2, x + 4, ty, spikes50 == 0 ? VBVUi.TEXT_DIM : 0xFFFFB070, true);
         ty += lineH;
-        if (line3 != null) {
-            graphics.text(font, line3, x + 4, ty, accent, true);
-            ty += lineH;
-        }
         // Frame-time bars: each bar is one frame, full height = 50 ms or worse.
         int gx = x + width / 2 - GRAPH_FRAMES / 2;
         int base = ty + GRAPH_HEIGHT;
@@ -195,10 +186,6 @@ public final class VBVPerf {
                 .append(" ms | worst ").append(Math.round(worst)).append(" ms\n");
             out.append("Frames over 50/100/250 ms: ").append(over50).append('/').append(over100).append('/').append(over250).append('\n');
         }
-        out.append("Entity culling: ").append(VBVEntityCulling.isEnabled() ? "ON" : "OFF")
-            .append(" (last frame ").append(VBVEntityCulling.lastEntitiesCulled()).append('/').append(VBVEntityCulling.lastEntitiesSeen())
-            .append(" entities, ").append(VBVEntityCulling.lastBlockEntitiesCulled()).append('/').append(VBVEntityCulling.lastBlockEntitiesSeen())
-            .append(" block entities culled)\n");
         out.append("LOD: ").append(VBVLod.name());
         if (VBVLod.getLevel() != VBVLod.OFF) {
             out.append(" (").append(VBVLod.rangeChunks()).append(" chunks, ").append(VBVLodCache.size()).append(" remembered)");
