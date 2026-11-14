@@ -39,7 +39,7 @@ jobs:
           fi
           [ -n "$run_id" ] || { echo "::error::No successful workflow 02 run found. Run workflow 02 first."; exit 1; }
 
-          artifact_name="Eaglercraft-26.2-VBV-Herz-Single-HTML-$run_id"
+          artifact_name="Aterix-Client-26.2-Single-HTML-$run_id"
           artifact_id="$(gh api "repos/${{ github.repository }}/actions/runs/$run_id/artifacts?per_page=100" --jq ".artifacts[] | select(.name == \"$artifact_name\" and .expired == false) | .id" | head -n1)"
           [ -n "$artifact_id" ] || { echo "::error::No unexpired $artifact_name artifact found in workflow run $run_id."; exit 1; }
 
@@ -117,7 +117,7 @@ jobs:
       - name: Upload a fresh copy of the standalone HTML
         uses: actions/upload-artifact@v4
         with:
-          name: Eaglercraft-26.2-VBV-Native-Single-HTML-Fixed-${{ github.run_id }}
+          name: Aterix-Client-26.2-Single-HTML-Fixed-${{ github.run_id }}
           path: ${{ github.workspace }}/output/eaglercraft-26.2-vbv-herz.html
           if-no-files-found: error
           retention-days: 14
