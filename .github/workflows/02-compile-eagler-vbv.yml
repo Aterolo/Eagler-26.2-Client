@@ -2,7 +2,7 @@ name: "02 - Build Eaglercraft 26.2 u2 (VBV + Herz)"
 
 run-name: "02 - Build VBV + Herz"
 
-# Veydris Client 26.2 build workflow
+# Aterix Client 26.2 build workflow
 
 on:
   workflow_dispatch:
@@ -479,7 +479,7 @@ jobs:
       - name: Upload standalone HTML client
         uses: actions/upload-artifact@v4
         with:
-          name: Eaglercraft-26.2-VBV-Herz-Single-HTML-${{ github.run_id }}
+          name: Aterix-Client-26.2-Single-HTML-${{ github.run_id }}
           path: eaglercraft-26.2-vbv-herz.html
           if-no-files-found: error
           retention-days: 14
@@ -488,7 +488,7 @@ jobs:
       - name: Upload cross-origin-isolated website bundle
         uses: actions/upload-artifact@v4
         with:
-          name: Eaglercraft-26.2-VBV-Herz-COI-Website-${{ github.run_id }}
+          name: Aterix-Client-26.2-COI-Website-${{ github.run_id }}
           path: eaglercraft-26.2-vbv-herz-coi.zip
           if-no-files-found: error
           retention-days: 14
@@ -497,7 +497,7 @@ jobs:
       - name: Upload raw browser website too
         uses: actions/upload-artifact@v4
         with:
-          name: Eaglercraft-26.2-VBV-Herz-Web-${{ github.run_id }}
+          name: Aterix-Client-26.2-Web-${{ github.run_id }}
           path: eaglercraft-u2/target_teavm_wasm_gc/build/web/**
           if-no-files-found: error
           retention-days: 14
