@@ -1,6 +1,6 @@
-name: "02 - Build Eaglercraft 26.2 u2 (VBV + Herz)"
+name: "02 - Build Aterix Client 26.2"
 
-run-name: "02 - Build VBV + Herz"
+run-name: "02 - Build Aterix Client"
 
 # Aterix Client 26.2 build workflow
 
@@ -401,13 +401,13 @@ jobs:
           EAGLER_COMPRESS_JOBS: "3"
         run: |
           set -euo pipefail
-          npm run build:single -- --output "$GITHUB_WORKSPACE/eaglercraft-26.2-vbv-herz.html"
-          test -s "$GITHUB_WORKSPACE/eaglercraft-26.2-vbv-herz.html"
+          npm run build:single -- --output "$GITHUB_WORKSPACE/aterix-client-26.2.html"
+          test -s "$GITHUB_WORKSPACE/aterix-client-26.2.html"
       - name: Verify standalone HTML and embedded runtime
         shell: bash
         run: |
           set -euo pipefail
-          html="$GITHUB_WORKSPACE/eaglercraft-26.2-vbv-herz.html"
+          html="$GITHUB_WORKSPACE/aterix-client-26.2.html"
           test -s "$html"
           require_marker() {
             if ! grep -Fq "$1" "$html"; then
@@ -441,11 +441,11 @@ jobs:
           fi
           echo "Built HTML: $(stat -c%s "$html") bytes"
       - name: Preserve raw standalone HTML if build verification fails
-        if: failure() && hashFiles('eaglercraft-26.2-vbv-herz.html') != ''
+        if: failure() && hashFiles('aterix-client-26.2.html') != ''
         uses: actions/upload-artifact@v4
         with:
           name: Eaglercraft-26.2-VBV-Herz-Raw-Debug-${{ github.run_id }}
-          path: eaglercraft-26.2-vbv-herz.html
+          path: aterix-client-26.2.html
           if-no-files-found: ignore
           retention-days: 3
           compression-level: 0
@@ -453,11 +453,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cp eaglercraft-26.2-vbv-herz.html eaglercraft-26.2-vbv-herz-pre-console.html
-          node VBV/patch/inject_error_overlay.js eaglercraft-26.2-vbv-herz-pre-console.html eaglercraft-26.2-vbv-herz.html
-          test -s eaglercraft-26.2-vbv-herz.html
-          grep -q 'id="vbv-diag-script"' eaglercraft-26.2-vbv-herz.html
-          grep -q 'window.__vbvDiagReady = true' eaglercraft-26.2-vbv-herz.html
+          cp aterix-client-26.2.html eaglercraft-26.2-vbv-herz-pre-console.html
+          node VBV/patch/inject_error_overlay.js eaglercraft-26.2-vbv-herz-pre-console.html aterix-client-26.2.html
+          test -s aterix-client-26.2.html
+          grep -q 'id="vbv-diag-script"' aterix-client-26.2.html
+          grep -q 'window.__vbvDiagReady = true' aterix-client-26.2.html
           rm -f eaglercraft-26.2-vbv-herz-pre-console.html
           echo "Invisible runtime readiness marker embedded; no diagnostics panel is displayed."
           web_root="eaglercraft-u2/target_teavm_wasm_gc/build/web"
@@ -465,7 +465,7 @@ jobs:
           cp VBV/patch/vbv-coi-sw.js "$web_root/vbv-sw.js"
           node VBV/patch/inject_error_overlay.js "$web_root/index.html" "$web_root/index.html"
           mkdir -p vbv-coi-standalone
-          cp eaglercraft-26.2-vbv-herz.html vbv-coi-standalone/index.html
+          cp aterix-client-26.2.html vbv-coi-standalone/index.html
           cp VBV/patch/vbv-coi-sw.js vbv-coi-standalone/vbv-sw.js
           python3 - <<'PY'
           from zipfile import ZipFile, ZIP_DEFLATED
@@ -480,7 +480,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Aterix-Client-26.2-Single-HTML-${{ github.run_id }}
-          path: eaglercraft-26.2-vbv-herz.html
+          path: aterix-client-26.2.html
           if-no-files-found: error
           retention-days: 14
           compression-level: 0
