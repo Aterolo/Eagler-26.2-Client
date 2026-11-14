@@ -123,11 +123,11 @@ const script = String.raw`<script id="aterix-screen-recorder">
 })();
 </script>`;
 const at = html.toLowerCase().lastIndexOf("</body>");
-if (at >= 0) html = html.slice(0,at) + script + "\\n" + html.slice(at);
+if (at >= 0) html = html.slice(0,at) + script + "\n" + html.slice(at);
 else {
   const end = html.toLowerCase().lastIndexOf("</html>");
   if (end < 0) throw new Error("No body/html closing tag found");
-  html = html.slice(0,end) + script + "\\n" + html.slice(end);
+  html = html.slice(0,end) + script + "\n" + html.slice(end);
 }
 if (!html.includes(marker)) throw new Error("Recorder injection verification failed");
 fs.writeFileSync(output,html);
