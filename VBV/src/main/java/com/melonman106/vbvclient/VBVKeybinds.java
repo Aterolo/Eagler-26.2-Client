@@ -24,13 +24,13 @@ public final class VBVKeybinds {
         // Right Shift toggles the Veydris ClickGUI and is intentionally checked
         // before modifier guards so the key can close the GUI while it is open.
         if (event.key() == KEY_RIGHT_SHIFT && !event.hasControlDown() && !event.hasAltDown()) {
-            if (screen instanceof VeydrisClickGuiScreen) {
+            if (screen instanceof AterixClickGuiScreen) {
                 VBVNav.open(null);
                 return true;
             }
             if (screen == null && minecraft.player != null) {
                 VBVClient.init();
-                VBVNav.open(new VeydrisClickGuiScreen());
+                VBVNav.open(new AterixClickGuiScreen());
                 return true;
             }
         }
