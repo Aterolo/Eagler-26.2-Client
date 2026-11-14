@@ -87,6 +87,7 @@ public final class VBVExtraFeatures {
                 VBVNav.open(null);
             } else if (minecraft.gui.screen() == null && minecraft.player != null) {
                 VBVClient.init();
+                HerzVBVBridge.initialize();
                 VBVNav.open(new AterixClickGuiScreen());
             }
         }
