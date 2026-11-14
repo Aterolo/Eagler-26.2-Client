@@ -1,6 +1,6 @@
-# Eaglercraft 26.2 VBV Client
+# Aterix Client (Eaglercraft 26.2)
 
-Native Eaglercraft 26.2 u2 client-side ViaBackportVisuals project, built in GitHub Actions.
+Aterix Client is a customized Eaglercraft 26.2 u2 client, built in GitHub Actions.
 
 ## Build pipeline
 
