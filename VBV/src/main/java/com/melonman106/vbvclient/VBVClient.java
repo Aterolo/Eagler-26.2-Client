@@ -21,6 +21,9 @@ public final class VBVClient {
     public static synchronized void init() {
         if (!MODS.isEmpty()) return;
         VBVConfigStore.loadAll();
+        // Aterix ships with the large Simple HUD information stack hidden by default.
+        VBVSimpleHudConfig.enabled = false;
+        VBVConfigStore.saveAll();
 
         reg(MOD_ID, "ViaBackportVisuals Client", VERSION, "melonman106",
             "A native Eaglercraft 26.2 client enhancement suite with performance, interface, rendering and quality-of-life features.",
