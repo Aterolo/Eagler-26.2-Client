@@ -466,7 +466,7 @@ jobs:
           import re, subprocess
           from pathlib import Path
           html = Path("aterix-client-26.2.html").read_text(encoding="utf-8")
-          match = re.search(r'<script id="aterix-screen-recorder">([\\s\\S]*?)</script>', html)
+          match = re.search(r'<script id="aterix-screen-recorder">([\s\S]*?)</script>', html)
           if not match:
               raise SystemExit("Injected Aterix recorder script was not found")
           check = subprocess.run(["node", "--check"], input=match.group(1), text=True, capture_output=True)
