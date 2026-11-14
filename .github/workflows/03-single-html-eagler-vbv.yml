@@ -1,6 +1,6 @@
-name: "03 - Retrieve Eaglercraft 26.2 u2 (Single HTML)"
+name: "03 - Retrieve Aterix Client 26.2"
 
-run-name: "03 - Retrieve latest native VBV single HTML"
+run-name: "03 - Retrieve latest Aterix Client HTML"
 
 on:
   workflow_dispatch:
@@ -55,7 +55,7 @@ jobs:
           set -euo pipefail
           mkdir -p output
           gh run download "$RUN_ID" --repo "${{ github.repository }}" --name "$ARTIFACT_NAME" --dir output
-          test -s output/eaglercraft-26.2-vbv-herz.html
+          test -s output/aterix-client-26.2.html
 
       - name: Verify standalone Eagler runtime bootstrap
         shell: bash
@@ -64,7 +64,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
 
-          path = Path("output/eaglercraft-26.2-vbv-herz.html")
+          path = Path("output/aterix-client-26.2.html")
           text = path.read_text(encoding="utf-8")
 
           required = (
@@ -101,15 +101,15 @@ jobs:
       - name: Verify fixed downloaded client is native-only
         run: |
           set -euo pipefail
-          if grep -q 'VBV-WEBMC-JSMOD-INTEGRATION' output/eaglercraft-26.2-vbv-herz.html; then
+          if grep -q 'VBV-WEBMC-JSMOD-INTEGRATION' output/aterix-client-26.2.html; then
             echo "::error::Legacy WebMC/JSMod integration marker found"
             exit 1
           fi
-          if grep -q 'webmc-jsmod' output/eaglercraft-26.2-vbv-herz.html; then
+          if grep -q 'webmc-jsmod' output/aterix-client-26.2.html; then
             echo "::error::Legacy webmc-jsmod marker found"
             exit 1
           fi
-          if grep -q 'VBVJSMods' output/eaglercraft-26.2-vbv-herz.html; then
+          if grep -q 'VBVJSMods' output/aterix-client-26.2.html; then
             echo "::error::Legacy VBVJSMods marker found"
             exit 1
           fi
@@ -118,7 +118,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Aterix-Client-26.2-Single-HTML-Fixed-${{ github.run_id }}
-          path: ${{ github.workspace }}/output/eaglercraft-26.2-vbv-herz.html
+          path: ${{ github.workspace }}/output/aterix-client-26.2.html
           if-no-files-found: error
           retention-days: 14
           compression-level: 0
