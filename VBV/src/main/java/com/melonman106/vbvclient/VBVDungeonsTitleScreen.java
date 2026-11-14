@@ -160,7 +160,7 @@ public final class VBVDungeonsTitleScreen extends TitleScreen {
         // A small edition label anchors the lower edge without obscuring the panorama
         // (skipped on tiny GUI sizes where the menu already reaches the bottom).
         if (menuBottom <= height - 14) {
-            graphics.text(font, "VBV EDITION  \u2022  26.2", left, height - 14, TEXT_DIM, false);
+            graphics.text(font, "ATERIX CLIENT  \u2022  26.2", left, height - 14, TEXT_DIM, false);
         }
     }
 
