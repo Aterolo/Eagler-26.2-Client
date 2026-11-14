@@ -7,7 +7,7 @@ if (!input || !output) { console.error("usage: node inject_screen_recorder.js <i
 let html = fs.readFileSync(input, "utf8");
 const marker = "ATERIX_SCREEN_RECORDER_V1";
 if (html.includes(marker)) { fs.writeFileSync(output, html); process.exit(0); }
-const script = String.raw\`<script id="aterix-screen-recorder">
+const script = String.raw`<script id="aterix-screen-recorder">
 /* ATERIX_SCREEN_RECORDER_V1 */
 (() => {
   if (window.__aterixScreenRecorder) return;
@@ -121,7 +121,7 @@ const script = String.raw\`<script id="aterix-screen-recorder">
   loadPosition(); setVisible(visible); refresh();
   console.info("[Aterix Recorder] Ready: F8 start/stop, F9 show/hide indicator.");
 })();
-</script>\`;
+</script>`;
 const at = html.toLowerCase().lastIndexOf("</body>");
 if (at >= 0) html = html.slice(0,at) + script + "\\n" + html.slice(at);
 else {
