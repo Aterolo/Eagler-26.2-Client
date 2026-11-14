@@ -38,6 +38,7 @@ public final class AterixClickGuiScreen extends Screen {
     private final Map<String, Button> moduleButtons = new LinkedHashMap<>();
     private final Map<String, Button> categoryButtons = new LinkedHashMap<>();
     private String category = "All";
+    private long openedAt;
 
     public AterixClickGuiScreen() {
         super(Component.literal("Aterix Client"));
@@ -46,6 +47,7 @@ public final class AterixClickGuiScreen extends Screen {
     @Override
     protected void init() {
         super.init();
+        openedAt = System.currentTimeMillis();
         VBVClient.init();
         int panelWidth = Math.min(390, width - 24);
         int left = (width - panelWidth) / 2;
@@ -176,6 +178,11 @@ public final class AterixClickGuiScreen extends Screen {
         graphics.text(font, title, width / 2 - font.width(title) / 2, top + 10, 0xFFE8D8FF, true);
         String hint = "Right Shift  •  Toggle modules  •  Settings save automatically";
         graphics.text(font, hint, width / 2 - font.width(hint) / 2, bottom - 15, 0xFF9C91AA, false);
+        // Smooth 240 ms fade-in for the complete click GUI.
+        float progress = Math.min(1.0F, Math.max(0.0F, (System.currentTimeMillis() - openedAt) / 240.0F));
+        float eased = progress * progress * (3.0F - 2.0F * progress);
+        int fadeAlpha = Math.round(150.0F * (1.0F - eased));
+        if (fadeAlpha > 0) graphics.fill(0, 0, width, height, (fadeAlpha << 24));
     }
 
     @Override
