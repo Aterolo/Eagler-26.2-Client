@@ -79,15 +79,15 @@ public final class VBVExtraFeatures {
 
     /** F3 modifier handling remains on the native keyboard event path. */
     public static void handleKey(int key, int action) {
-        // GLFW KEY_RIGHT_SHIFT (344): toggle the Veydris module ClickGUI.
+        // GLFW KEY_RIGHT_SHIFT (344): toggle the Aterix module ClickGUI.
         // This hook is called by the native KeyboardHandler before screen routing.
         if (key == 344 && action == 1) {
             Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.gui.screen() instanceof VeydrisClickGuiScreen) {
+            if (minecraft.gui.screen() instanceof AterixClickGuiScreen) {
                 VBVNav.open(null);
             } else if (minecraft.gui.screen() == null && minecraft.player != null) {
                 VBVClient.init();
-                VBVNav.open(new VeydrisClickGuiScreen());
+                VBVNav.open(new AterixClickGuiScreen());
             }
         }
         if (key == 70) {
