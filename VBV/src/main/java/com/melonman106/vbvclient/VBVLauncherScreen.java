@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 /**
- * VBV Launcher: a Modrinth-app style hub with a tab sidebar.
+ * Aterix: a Modrinth-style client hub with a tab sidebar.
  *
  * <ul>
  *   <li><b>Discover</b> - search Modrinth for resource packs and install them in one click.</li>
@@ -81,7 +81,7 @@ public final class VBVLauncherScreen extends Screen {
     }
 
     public VBVLauncherScreen(Screen parent, Tab initialTab) {
-        super(Component.literal("VBV Launcher"));
+        super(Component.literal("Aterix"));
         this.parent = parent;
         this.tab = initialTab == null ? Tab.DISCOVER : initialTab;
         lastTab = this.tab;
@@ -286,7 +286,7 @@ public final class VBVLauncherScreen extends Screen {
         actions.add(new Action("RESOURCE PACKS", "Turn packs on or off and import ZIP files.", b -> openPackManager()));
         actions.add(new Action("IMPORT PACK FROM COMPUTER", "Copy a resource pack ZIP into your storage folder.",
             b -> VBVStorage.importResourcePack()));
-        actions.add(new Action("MODS", "Browse and configure the VBV mods.", b -> VBVNav.open(new VBVModsScreen(this))));
+        actions.add(new Action("MODS", "Browse and configure Aterix mods.", b -> VBVNav.open(new VBVModsScreen(this))));
         actions.add(new Action("HAND POSITION", "Move held items up, down, closer or further away.",
             b -> VBVNav.open(new VBVFirstPersonAnimationsConfigScreen(this))));
         addActions(contentY + 4, actions);
@@ -328,7 +328,7 @@ public final class VBVLauncherScreen extends Screen {
         graphics.pose().scale(1.5F, 1.5F);
         graphics.text(font, VBVUi.fit(font, name, (Math.min(contentW, 300) - head - 40) * 2 / 3), 0, 0, 0xFFFFFFFF, true);
         graphics.pose().popMatrix();
-        graphics.text(font, "Your hero in VBV", tx, contentY + 28, VBVTheme.accentLight(), false);
+        graphics.text(font, "Your hero in Aterix", tx, contentY + 28, VBVTheme.accentLight(), false);
     }
 
     // ---------------------------------------------------------------- party
@@ -365,7 +365,7 @@ public final class VBVLauncherScreen extends Screen {
 
     private void buildStorage() {
         List<Action> actions = new ArrayList<>();
-        actions.add(new Action("CHOOSE STORAGE FOLDER", "Pick the folder on your computer VBV should use.",
+        actions.add(new Action("CHOOSE STORAGE FOLDER", "Choose the folder Aterix should use, or use browser storage if folder picking is unavailable.",
             b -> VBVStorage.chooseFolder()));
         actions.add(new Action("RECONNECT FOLDER", "Re-open the folder you chose last time.", b -> VBVStorage.reconnect()));
         actions.add(new Action("IMPORT WORLD", "Copy a world into your storage folder.", b -> VBVStorage.importWorld()));
