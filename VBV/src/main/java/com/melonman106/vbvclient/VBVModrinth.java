@@ -114,9 +114,36 @@ public final class VBVModrinth {
               ? "Failed to fetch (blocked by the network, or offline)" : message;
           }
           async function getJson(url) {
-            var response = await fetch(url, { headers: { "Accept": "application/json" } });
-            if (!response.ok) throw new Error("Modrinth HTTP " + response.status);
-            return response.json();
+            var lastError = null;
+            for (var attempt = 0; attempt < 3; attempt++) {
+              try {
+                var response = await fetch(url, { headers: { "Accept": "application/json" }, cache: "no-store" });
+                var body = await response.text();
+                if (!response.ok) {
+                  var detail = "";
+                  try { var problem = JSON.parse(body); detail = clean(problem.description || problem.error || ""); } catch (_) {}
+                  var error = new Error("Modrinth HTTP " + response.status + (detail ? ": " + detail : ""));
+                  error.status = response.status;
+                  error.retryAfter = response.headers.get("retry-after");
+                  if (response.status === 429 || response.status >= 500) throw error;
+                  throw error;
+                }
+                try {
+                  return JSON.parse(body);
+                } catch (parseError) {
+                  var contentType = response.headers.get("content-type") || "unknown content";
+                  throw new Error("Modrinth returned invalid JSON (" + contentType + "). The API may be temporarily unavailable; please try again.");
+                }
+              } catch (e) {
+                lastError = e;
+                var status = Number(e && e.status) || 0;
+                var retryable = status === 429 || status >= 500 || !status;
+                if (!retryable || attempt === 2) throw e;
+                var wait = e && e.retryAfter ? Math.min(10000, Math.max(1000, Number(e.retryAfter) * 1000 || 0)) : (1000 * (attempt + 1));
+                await new Promise(function (resolve) { setTimeout(resolve, wait); });
+              }
+            }
+            throw lastError || new Error("Modrinth request failed");
           }
           async function sha512Hex(buffer) {
             var digest = await crypto.subtle.digest("SHA-512", buffer);
