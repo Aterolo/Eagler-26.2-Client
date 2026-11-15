@@ -40,6 +40,12 @@ public final class AterixClickGuiScreen extends Screen {
     private String category = "All";
     private long openedAt;
 
+    private int panelWidth() { return Math.min(390, Math.max(240, width - 16)); }
+    private int moduleRows() { return (MODULES.length + 1) / 2; }
+    private int rowPitch() { return Math.max(22, Math.min(31, (height - 105) / Math.max(1, moduleRows()))); }
+    private int panelHeight() { return 54 + moduleRows() * rowPitch() + 35; }
+    private int panelTop() { return Math.max(8, (height - panelHeight()) / 2); }
+
     public AterixClickGuiScreen() {
         super(Component.literal("Aterix Client"));
     }
@@ -49,9 +55,11 @@ public final class AterixClickGuiScreen extends Screen {
         super.init();
         openedAt = System.currentTimeMillis();
         VBVClient.init();
-        int panelWidth = Math.min(390, width - 24);
+        int panelWidth = panelWidth();
         int left = (width - panelWidth) / 2;
-        int top = Math.max(24, height / 2 - 125);
+        int top = panelTop();
+        int pitch = rowPitch();
+        int buttonHeight = Math.min(25, pitch - 3);
         int tabGap = 4;
         int tabWidth = (panelWidth - 24 - tabGap * (CATEGORIES.length - 1)) / CATEGORIES.length;
 
@@ -61,7 +69,7 @@ public final class AterixClickGuiScreen extends Screen {
             Button tab = Button.builder(Component.literal(name), b -> {
                 category = name;
                 refreshButtons();
-            }).bounds(left + 12 + i * (tabWidth + tabGap), top + 35, tabWidth, 20).build();
+            }).bounds(left + 12 + i * (tabWidth + tabGap), top + 29, tabWidth, 18).build();
             categoryButtons.put(name, tab);
             addRenderableWidget(tab);
         }
@@ -69,7 +77,6 @@ public final class AterixClickGuiScreen extends Screen {
         moduleButtons.clear();
         int gap = 8;
         int buttonWidth = (panelWidth - 32 - gap) / 2;
-        int buttonHeight = 25;
         int row = 0;
         for (String[] module : MODULES) {
             final String id = module[0];
@@ -77,14 +84,14 @@ public final class AterixClickGuiScreen extends Screen {
                 toggle(id);
                 b.setMessage(Component.literal(moduleLabel(id, module[1])));
             }).bounds(left + 12 + (row % 2) * (buttonWidth + gap),
-                      top + 65 + (row / 2) * (buttonHeight + 6), buttonWidth, buttonHeight).build();
+                      top + 54 + (row / 2) * pitch, buttonWidth, buttonHeight).build();
             moduleButtons.put(id, button);
             addRenderableWidget(button);
             row++;
         }
 
         addRenderableWidget(Button.builder(Component.literal("Done  (Right Shift)"), b -> onClose())
-            .bounds(width / 2 - 78, top + 65 + ((MODULES.length + 1) / 2) * 31 + 8, 156, 20).build());
+            .bounds(width / 2 - 78, top + 54 + moduleRows() * pitch + 5, 156, 20).build());
         refreshButtons();
     }
 
@@ -164,25 +171,27 @@ public final class AterixClickGuiScreen extends Screen {
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        int panelWidth = Math.min(390, width - 24);
+        int panelWidth = panelWidth();
         int left = (width - panelWidth) / 2;
-        int top = Math.max(24, height / 2 - 125);
-        int rows = (MODULES.length + 1) / 2;
-        int bottom = top + 65 + rows * 31 + 38;
+        int top = panelTop();
+        int bottom = top + panelHeight();
+        // Paint the panel BEFORE native widgets. Painting it after super.extractRenderState
+        // covered every module button, making the menu look empty and unclickable.
         graphics.fill(left - 2, top - 2, left + panelWidth + 2, bottom + 2, 0xFF08060D);
         graphics.fill(left, top, left + panelWidth, bottom, 0xF20E0B16);
-        graphics.fill(left, top, left + panelWidth, top + 2, 0xFF9B55F5);
-        graphics.fill(left, top + 2, left + panelWidth, top + 3, 0xFF512477);
+        graphics.fill(left, top, left + panelWidth, top + 2, 0xFF512477);
+        float progress = Math.min(1.0F, Math.max(0.0F, (System.currentTimeMillis() - openedAt) / 320.0F));
+        float eased = progress * progress * (3.0F - 2.0F * progress);
+        int accentWidth = Math.max(1, Math.round(panelWidth * eased));
+        graphics.fill(left, top, left + accentWidth, top + 3, 0xFFB56BFF);
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        // Fade the whole menu in without permanently drawing the panel over its controls.
+        int fadeAlpha = Math.round(115.0F * (1.0F - eased));
+        if (fadeAlpha > 0) graphics.fill(left, top, left + panelWidth, bottom, (fadeAlpha << 24));
         String title = "ATERIX CLIENT";
-        graphics.text(font, title, width / 2 - font.width(title) / 2, top + 10, 0xFFE8D8FF, true);
+        graphics.text(font, title, width / 2 - font.width(title) / 2, top + 9, 0xFFE8D8FF, true);
         String hint = "Right Shift  •  Toggle modules  •  Settings save automatically";
         graphics.text(font, hint, width / 2 - font.width(hint) / 2, bottom - 15, 0xFF9C91AA, false);
-        // Smooth 240 ms fade-in for the complete click GUI.
-        float progress = Math.min(1.0F, Math.max(0.0F, (System.currentTimeMillis() - openedAt) / 240.0F));
-        float eased = progress * progress * (3.0F - 2.0F * progress);
-        int fadeAlpha = Math.round(150.0F * (1.0F - eased));
-        if (fadeAlpha > 0) graphics.fill(0, 0, width, height, (fadeAlpha << 24));
     }
 
     @Override
