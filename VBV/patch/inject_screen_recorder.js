@@ -23,7 +23,7 @@ const script = String.raw`<script id="aterix-screen-recorder">
   const panel = document.createElement("div");
   panel.id = "aterix-recorder";
   panel.setAttribute("role", "status");
-  panel.innerHTML = '<span class="rec-label"><span class="rec-dot"></span><span id="aterix-rec-time">REC · B</span></span><button id="aterix-rec-toggle" type="button">Start</button>';
+  panel.innerHTML = '<span class="rec-label"><span class="rec-dot"></span><span id="aterix-rec-time">REC · ]</span></span><button id="aterix-rec-toggle" type="button">Start</button>';
   (document.body || document.documentElement).appendChild(panel);
   const label = panel.querySelector("#aterix-rec-time");
   const button = panel.querySelector("#aterix-rec-toggle");
@@ -52,7 +52,7 @@ const script = String.raw`<script id="aterix-screen-recorder">
     const active = !!recorder && recorder.state === "recording";
     panel.classList.toggle("recording", active);
     button.textContent = active ? "Stop" : "Start";
-    label.textContent = active ? elapsed(Date.now()-startedAt) : "REC · B";
+    label.textContent = active ? elapsed(Date.now()-startedAt) : "REC · ]";
   }
   function gameCanvas() {
     const list = Array.from(document.querySelectorAll("canvas")).filter(c => c.width>0 && c.height>0);
@@ -109,7 +109,7 @@ const script = String.raw`<script id="aterix-screen-recorder">
   function endDrag(){if(!dragging)return;dragging=false;panel.style.cursor="grab";if(moved)savePosition();}
   panel.addEventListener("pointerup",endDrag); panel.addEventListener("pointercancel",endDrag);
   window.addEventListener("keydown",e=>{
-    if(e.code==="KeyB"&&!e.repeat){e.preventDefault();e.stopPropagation();toggle();}
+    if(e.code==="BracketRight"&&!e.repeat){e.preventDefault();e.stopPropagation();toggle();}
     else if(e.code==="KeyY"&&!e.repeat){e.preventDefault();e.stopPropagation();setVisible(!visible);}
   },true);
   window.addEventListener("resize",()=>{
@@ -119,7 +119,7 @@ const script = String.raw`<script id="aterix-screen-recorder">
     if(panel.style.left)savePosition();
   });
   loadPosition(); setVisible(visible); refresh();
-  console.info("[Aterix Recorder] Ready: B start/stop, Y show/hide indicator.");
+  console.info("[Aterix Recorder] Ready: ] start/stop, Y show/hide indicator.");
 })();
 </script>`;
 const at = html.toLowerCase().lastIndexOf("</body>");
@@ -131,4 +131,4 @@ else {
 }
 if (!html.includes(marker)) throw new Error("Recorder injection verification failed");
 fs.writeFileSync(output,html);
-console.log("[aterix-recorder] Injected F8 WebM recorder and draggable F9 indicator.");
+console.log("[aterix-recorder] Injected ] WebM recorder and draggable Y indicator.");
