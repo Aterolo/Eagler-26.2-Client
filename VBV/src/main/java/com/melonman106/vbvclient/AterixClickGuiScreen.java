@@ -27,7 +27,6 @@ public final class AterixClickGuiScreen extends Screen {
         {"speed", "Speed", "Movement"},
         {"no-fall", "NoFall", "Movement"},
         {"elytra-fly", "ElytraFly", "Movement"},
-        {"minimap", "Minimap", "Render"},
         {"jade", "Target Info", "HUD"},
         {"shulker-viewer", "Shulker Preview", "Utility"},
         {"first-person", "First Person Arms", "Render"},
@@ -131,7 +130,6 @@ public final class AterixClickGuiScreen extends Screen {
             case "speed": return VBVMovementFeatures.speed;
             case "no-fall": return VBVMovementFeatures.noFall;
             case "elytra-fly": return VBVMovementFeatures.elytraFly;
-            case "minimap": return VBVMiniMap.enabled;
             case "jade": return VBVJadeHud.enabled;
             case "shulker-viewer": return VBVShulkerViewer.enabled;
             case "first-person": return VBVFirstPersonAnimations.isEnabled();
@@ -158,7 +156,6 @@ public final class AterixClickGuiScreen extends Screen {
             case "speed": VBVMovementFeatures.speed = !VBVMovementFeatures.speed; break;
             case "no-fall": VBVMovementFeatures.noFall = !VBVMovementFeatures.noFall; break;
             case "elytra-fly": VBVMovementFeatures.elytraFly = !VBVMovementFeatures.elytraFly; break;
-            case "minimap": VBVMiniMap.enabled = !VBVMiniMap.enabled; break;
             case "jade": VBVJadeHud.enabled = !VBVJadeHud.enabled; break;
             case "shulker-viewer": VBVShulkerViewer.toggle(); break;
             case "first-person": VBVFirstPersonAnimations.toggle(); break;
